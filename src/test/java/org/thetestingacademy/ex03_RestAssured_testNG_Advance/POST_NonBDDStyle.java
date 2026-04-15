@@ -1,14 +1,11 @@
-package org.thetestingacademy.org.thetestingacademy.ex_03_RestAssured_TestNg_Advance;
+package org.thetestingacademy.ex03_RestAssured_testNG_Advance;
 
-import io.qameta.allure.internal.shadowed.jackson.databind.ser.std.ObjectArraySerializer;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 
 import static org.hamcrest.Matchers.emptyString;
 
