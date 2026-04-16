@@ -9,13 +9,14 @@ import org.testng.annotations.Test;
 
 
 public class POST_CreateBooking {
-    RequestSpecification r;
-    ValidatableResponse vr;
-    Response response;
-    String token;
+    private static RequestSpecification r;
+    private static Response response;
+    private static ValidatableResponse vr;
+    static String token;
+    static String bookingId;
     //@Test(dependsOnMethods = "createToken")
     @Test
-    public void createBookingTest()
+    public  void createBookingTest()
     {
         String payload = "{\n" +
                 "  \"firstname\": \"Jim\",\n" +
@@ -28,9 +29,9 @@ public class POST_CreateBooking {
                 "  },\n" +
                 "  \"additionalneeds\": \"Breakfast\"\n" +
                 "}";
-        POST_NonBDDStyle.createToken();
-        token=POST_NonBDDStyle.getToken();
-        System.out.println(POST_NonBDDStyle.getToken());
+        //POST_CreateToken.createToken();
+        token= POST_CreateToken.getToken();
+        System.out.println(POST_CreateToken.getToken());
 
         r = RestAssured.given().baseUri("https://restful-booker.herokuapp.com")
                 .basePath("/booking")
@@ -39,13 +40,16 @@ public class POST_CreateBooking {
                 .header("Authentication","token",token)
                 .body(payload);
         response = r.when().log().all().post();
-
         vr = response.then().log().all();
         vr.statusCode(200);
 
-        String bookingId = response.jsonPath().getString("bookingid");
-        int bid = Integer.parseInt(bookingId);
-        System.out.println(bid);
 
+        bookingId = response.jsonPath().getString("bookingid");
+        int bid = Integer.parseInt(bookingId);
+        String firstName = response.jsonPath().getString("booking.firstname");
+        String checkinDate = response.jsonPath().getString("booking.bookingdates.checkin");
+        System.out.println(bid);
+        System.out.println(firstName);
+        System.out.println(checkinDate);
     }
 }
