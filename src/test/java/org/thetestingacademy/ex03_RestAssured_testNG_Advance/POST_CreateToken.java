@@ -6,10 +6,11 @@ import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import org.hamcrest.Matchers;
+import org.testng.annotations.BeforeTest;
 
 import static org.hamcrest.Matchers.emptyString;
 
-public class POST_NonBDDStyle {
+public class POST_CreateToken {
 
     private static RequestSpecification r;
     private static Response response;
@@ -20,8 +21,8 @@ public class POST_NonBDDStyle {
     {
         return token;
     }
-   //@BeforeTest
-//@Test
+
+    @BeforeTest
     public static void createToken()
     {
         String payload = "{\n" +
@@ -40,5 +41,6 @@ public class POST_NonBDDStyle {
         vr.body("token", Matchers.not(emptyString()));
         token = response.jsonPath().getString("token");
         System.out.println(token);
+
     }
 }
